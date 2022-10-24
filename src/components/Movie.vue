@@ -8,7 +8,8 @@
     <button @click="showThis">打印 this</button>
     <button @click="goBack">后退</button>
     <hr>
-    <button @click="Back">back 后退</button>
+    <!-- TODO: 当写在行内的时候 就不要加 this 不然会报错 -->
+    <button @click="$router.back()">back 后退</button>
     <button @click="Forward">forward 前进</button>
 
   </div>
