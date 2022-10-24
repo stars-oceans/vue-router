@@ -11,6 +11,11 @@ import About from '@/components/About.vue'
 // 导入About 的子组件
 import top1 from '@/components/Top/top1.vue'
 import top2 from '@/components/Top/top2.vue'
+
+// 导入Login 组件
+import Login from '@/components/Login.vue'
+// 导入 Main 组件
+import Main from '@/components/Main.vue'
 // 2.调用 Vue.use() 函数,把 VueRouter 安装 给Vue 的插件
 // 安装插件 就是用 Vue.use() 函数
 Vue.use(VueRouter)
@@ -34,9 +39,40 @@ const router = new VueRouter({
         { path: 'top1', component: top1 },
         { path: 'top2', component: top2 }
       ]
-    }
+    },
+    { path: '/Login', component: Login },
+    { path: '/Main', component: Main }
 
   ]
 })
+
+// TODO: 导航守卫
+// router 实例对象, 声明全局前置导航守卫
+// 只要发生跳转,必然会触 beforEach 指定 的 函数回调
+router.beforeEach(function (to, from, next) {
+  // next() 函数表示放行的意思
+  // 1.拿到用户将要访问的 hash 地址
+  // 2. 判断 hash 地址是否等于 /main
+  // 2.1 如果等于 /main,证明需要登录之后,才能访问成功
+  // 2.2 如果不等于 /main, 则不需要登录,直接放行 next()
+  // 3.如果访问的地址是 /main。则需要读取 localStorage 中的 token 值
+  // 3.1 如果有 token 则放行
+  // 3.2 如果没有 token, 则强制跳转到 /login 登录页
+  if (to.path === '/Main') {
+    // 要访问后台主页,需要判断是否有 token
+    const token = localStorage.getItem('token')
+    if (token) {
+      next()
+    } else {
+      next('/login')
+    }
+  } else {
+    next()
+  }
+})
+// to 跳转到的位置  就是   末
+// from 从哪里开始跳  就是 开始
+// next 表示放行的位置
+
 // 4.导出
 export default router

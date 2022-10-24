@@ -3,6 +3,9 @@
     <p>Home</p>
     <button @click="gotoLK">跳转到 Movie1</button>
     <button @click="gotoLKrep">跳转到 Movie2 不带记录</button>
+
+    <router-link to="/Main">访问 Mian 后台主页</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
