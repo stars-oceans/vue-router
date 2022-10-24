@@ -6,6 +6,11 @@
     <p>porps 传参------{{ id }}</p>
     <hr>
     <button @click="showThis">打印 this</button>
+    <button @click="goBack">后退</button>
+    <hr>
+    <button @click="Back">back 后退</button>
+    <button @click="Forward">forward 前进</button>
+
   </div>
 </template>
 
@@ -18,6 +23,18 @@ export default {
   methods: {
     showThis () {
       console.log(this)
+    },
+    goBack () {
+      // 后退到上一层路径
+      this.$router.go(-1)
+    },
+    Back () {
+      // 后退一格
+      this.$router.back()
+    },
+    Forward () {
+      // 前进地址
+      this.$router.forward()
     }
   }
 }
